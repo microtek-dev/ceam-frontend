@@ -1,0 +1,5 @@
+.add-vendor-inputs-main{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

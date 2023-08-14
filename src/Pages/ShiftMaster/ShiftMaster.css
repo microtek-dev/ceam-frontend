@@ -1,0 +1,5 @@
+.new-shift-master-input-main{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}

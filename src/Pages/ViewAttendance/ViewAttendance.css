@@ -1,0 +1,58 @@
+.view-attendance-main{
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    gap: 40px;
+    min-height: 89vh;
+   
+}
+
+.attendance-search-main{
+    display: flex;
+    flex-direction: column;
+}
+.attendance-search-input-main{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+}
+.attendance-search-input-main > *{
+    flex-basis: 18%;
+
+}
+
+@media only screen and (max-width: 1100px) {
+    .attendance-search-input-main > *{
+        flex-basis: 23%;
+    }
+  }
+@media only screen and (max-width: 925px) {
+    .attendance-search-input-main > *{
+        flex-basis: 30%;
+    }
+  }
+@media only screen and (max-width: 700px) {
+    .attendance-search-input-main > *{
+        flex-basis: 45%;
+    }
+  }
+  
+@media only screen and (max-width: 400px) {
+    .attendance-search-input-main{
+        flex-direction: column;
+        align-items: inherit;
+    }
+  }
+  
+
+.sl-details::part(summary){
+    color: #666666;
+}
+
+.report-table > div{
+    border: 1px solid rgb(218, 218, 218);
+    box-shadow: none !important;
+}

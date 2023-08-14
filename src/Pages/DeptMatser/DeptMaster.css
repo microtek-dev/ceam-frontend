@@ -1,0 +1,5 @@
+.dept-master-main{
+    display: flex;
+    min-width: 100%;
+    flex-direction: column;
+}

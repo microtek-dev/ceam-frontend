@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&display=swap');
+
+
+.logi-main *{
+    font-family: 'Nunito', sans-serif;
+}
+
+.logi-main{
+    min-height: 100vh;
+    min-width: 100%;
+ 
+   flex-direction: row;
+    display: flex;
+
+}
+.logi-main-left{
+    background-color: rgb(240, 240, 240);
+    flex-grow: 0.5;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center ;
+    align-items: center;
+}
+
+.logi-main-left-container{
+    min-width: 75%;
+    min-height: 74%;
+padding: 5% 5%;
+    /* animation: abc 3s 1s ease-in infinite normal; */
+    display: flex;
+  
+    
+}
+.logi-main-left-inner{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    min-width: 100%;
+}
+.logi-main-left-header > h3{
+    font-size: 34px;
+    font-family: 'Nunito', sans-serif;
+}
+.logi-main-left-header > p{
+    font-size: 16px;
+}
+
+.logi-input-main{
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+    gap: 30px;
+}
+.logi-input-inner{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+   
+}
+.logi-input-inner > input{
+    min-width: 80%;
+    padding: 4%;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(200, 200, 200);
+}
+
+.logi-input-inner > label{
+    color: rgb(32, 32, 32);
+}
+.logi-forget-link > a{
+    float: right;
+    font-size: 14px;
+    color: rgb(139 92 246) ;
+}
+
+
+.logi-buttons-main{
+    min-width: 90%;
+}
+.logi-buttons-main > button{
+    min-width: 100%;
+    min-height: 50px;
+border-radius: 5px;
+    border: none;
+    background-color:  rgb(139 92 246);
+    color: white;
+    font-size: 18px;
+}
+.logi-buttons-main > button:hover{
+    background-color:  rgb(119, 67, 241);
+}
+.logi-buttons-main > button:disabled{
+    cursor: not-allowed;
+    color: rgba(219, 218, 218, 0.774);
+    background-color:  rgba(138, 92, 246, 0.729);
+
+    border-color:rgba(138, 92, 246, 0.729);
+}
+
+.logi-main-right{
+  background-color: rgb(255, 255, 255);
+    flex-grow: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logi-main-right-inner{
+    background-image: url('./timesheet.png');    
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 90%;
+    height: 70%;
+}
+
+@keyframes abc{
+    0%{
+        background-color: rgb(214, 199, 229);
+        min-height: 70%;
+    }
+    50%{
+        background-color: rgb(88, 45, 132);
+        min-height: 100%;
+    }
+    100%{
+        background-color: rgb(199, 229, 215);
+        min-height: 70%;
+    }
+}
+
+@media (max-width: 1280px) {
+    .logi-main-left{
+        flex-grow: 0.7;
+    }
+}
+@media (max-width: 1024px) {
+    .logi-main-left{
+        flex-grow: 0.9;
+    }
+}
+@media (max-width: 768px) {
+    .logi-main-left{
+        flex-grow: 1;
+    }
+    .logi-main-right{
+        display: none;
+    }
+}
+@media (max-width: 640px) {
+    .logi-main-left-container{
+        min-width: 95%;
+    }
+}
+
