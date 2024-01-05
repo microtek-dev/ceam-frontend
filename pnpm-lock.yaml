@@ -9,11 +9,11 @@ dependencies:
     specifier: ^11.10.6
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.34)(react@18.2.0)
   '@mui/material':
-    specifier: ^5.15.2
+    specifier: ^5.14.2
     version: 5.15.2(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
   '@shoelace-style/shoelace':
-    specifier: ^2.2.0
-    version: 2.11.2(@types/react@18.2.34)
+    specifier: ^2.12.0
+    version: 2.12.0(@types/react@18.2.34)
   axios:
     specifier: ^1.2.1
     version: 1.6.0
@@ -1735,7 +1735,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.7
       '@emotion/babel-plugin': 11.11.0
       '@emotion/cache': 11.11.0
       '@emotion/serialize': 1.1.2
@@ -2232,7 +2232,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.7
       '@mui/material': 5.15.2(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.34
       react: 18.2.0
@@ -2526,8 +2526,8 @@ packages:
     resolution: {integrity: sha512-Hf45HeO+vdQblabpyZOTxJ4ZeZsmIUYXXPmoYrrR4OJ5OKxL+bhMz5mK8JXgl7HsoEowfz7+e248UGi861de9Q==}
     dev: false
 
-  /@shoelace-style/shoelace@2.11.2(@types/react@18.2.34):
-    resolution: {integrity: sha512-V94PTZ3CKcRH7NozDIEK5gMG3yeCZhF/3jCpKZ7Wexpf9kOqIRaMGoW3omq21I8NRefNLEknkV9Q392JIZLjBA==}
+  /@shoelace-style/shoelace@2.12.0(@types/react@18.2.34):
+    resolution: {integrity: sha512-1Amirj0c5WLkymDcP6ZQmBfMC6zTNmGGK7/mjmGq4yhljrVaECVlBoKm0tfmo1jd3r8XJ8xYbQ8cxPAlwiDDvw==}
     engines: {node: '>=14.17.0'}
     dependencies:
       '@ctrl/tinycolor': 4.0.2
