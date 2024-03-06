@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 function Login() {
   let navigate = useNavigate();
+  let navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
     username: "",
@@ -38,6 +39,7 @@ function Login() {
         localStorage.setItem("department", response.data.department);
         localStorage.setItem("fullname", response.data.name_of_the_eployee);
 
+        /*   const data = {
         /*   const data = {
                 module_name:"qr-app",
                 employee_id: response.data.new_e_code
