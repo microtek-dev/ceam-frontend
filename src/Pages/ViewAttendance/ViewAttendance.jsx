@@ -1,4 +1,11 @@
-import { SlButton, SlDetails, SlDialog, SlInput,  SlOption, SlSelect } from "@shoelace-style/shoelace/dist/react/index";
+import {
+  SlButton,
+  SlDetails,
+  SlDialog,
+  SlInput,
+  SlOption,
+  SlSelect,
+} from "@shoelace-style/shoelace/dist/react/index";
 import "./ViewAttendance.css";
 import React, { useRef, useState } from "react";
 import MUIDataTable from "mui-datatables";
@@ -27,7 +34,7 @@ function ViewAttendance() {
   const [deptList, setDeptList] = useState();
   const [categoryList, setCategoryList] = useState();
   const [openRegularizeDailog, setOpenRegularizeDailog] = useState(false);
-  const [regularizeFile, setRegularizeFile] = useState()
+  const [regularizeFile, setRegularizeFile] = useState();
   const [sendEmployeeData, setSendEmployeeData] = useState({
     start_date: "",
     end_date: "",
@@ -194,7 +201,9 @@ function ViewAttendance() {
   function getAttendanceByEmployee() {
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-attendance-by-variable-new2`,
+      url: `${
+        import.meta.env.VITE_API_URL
+      }/mhere/get-attendance-by-variable-new2`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -205,10 +214,22 @@ function ViewAttendance() {
 
         let data = res.data.data;
         data.forEach((item) => {
-          item.Work_Hours = `${parseInt(item.Work_Hours / 60)}H ${item.Work_Hours - parseInt(item.Work_Hours / 60) * 60}M`;
-          item.Comming_Late = item.Comming_Late ? `${parseInt(item.Comming_Late / 60)}H ${item.Comming_Late - parseInt(item.Comming_Late / 60) * 60}M` : null;
-          item.Leaving_Early = item.Leaving_Early ? `${parseInt(item.Leaving_Early / 60)}H ${item.Leaving_Early - parseInt(item.Leaving_Early / 60) * 60}M` : null;
-          item.Extra = `${parseInt(item.Extra / 60)}H ${item.Extra - parseInt(item.Extra / 60) * 60}M`;
+          item.Work_Hours = `${parseInt(item.Work_Hours / 60)}H ${
+            item.Work_Hours - parseInt(item.Work_Hours / 60) * 60
+          }M`;
+          item.Comming_Late = item.Comming_Late
+            ? `${parseInt(item.Comming_Late / 60)}H ${
+                item.Comming_Late - parseInt(item.Comming_Late / 60) * 60
+              }M`
+            : null;
+          item.Leaving_Early = item.Leaving_Early
+            ? `${parseInt(item.Leaving_Early / 60)}H ${
+                item.Leaving_Early - parseInt(item.Leaving_Early / 60) * 60
+              }M`
+            : null;
+          item.Extra = `${parseInt(item.Extra / 60)}H ${
+            item.Extra - parseInt(item.Extra / 60) * 60
+          }M`;
         });
         setEmployeeData(data);
       })
@@ -221,7 +242,7 @@ function ViewAttendance() {
   function getAttendanceByVendor() {
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-attendance-by-vendor-id`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-attendance-by-vendor-id`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -238,7 +259,7 @@ function ViewAttendance() {
   function getAttendanceByPlantName() {
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-attendance-by-plant-name`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-attendance-by-plant-name`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -256,7 +277,7 @@ function ViewAttendance() {
   function getData() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-plant`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-plant`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -281,7 +302,7 @@ function ViewAttendance() {
   function getCategory() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-ceam-category-master`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-ceam-category-master`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -298,7 +319,7 @@ function ViewAttendance() {
   function getDeptList() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-ceam-department-master`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-ceam-department-master`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -319,7 +340,7 @@ function ViewAttendance() {
     };
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-division`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-division`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -336,7 +357,7 @@ function ViewAttendance() {
   function getVendorlist() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-ceam-vendor-master`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-ceam-vendor-master`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -350,27 +371,29 @@ function ViewAttendance() {
       });
   }
 
-  function sendRegularizeData(){
-	const data={
-		employee_id:localStorage.getItem('employee_id'),
-		attendance_data:regularizeFile
-	}
-	axios({
-		method: "post",
-		url: `${baseurl.base_url}/mhere/upload-roster-regularization-bulk-past-days`,
-		headers: {
-		  "Content-Type": "application/json",
-		},
-		data
-	  })
-		.then((res) => {
-			toast.success(res.data.message)
-			setOpenRegularizeDailog(false);
-		console.log(res);
-		})
-		.catch((err) => {
-		  console.log(err);
-		});
+  function sendRegularizeData() {
+    const data = {
+      employee_id: localStorage.getItem("employee_id"),
+      attendance_data: regularizeFile,
+    };
+    axios({
+      method: "post",
+      url: `${
+        import.meta.env.VITE_API_URL
+      }/mhere/upload-roster-regularization-bulk-past-days`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        toast.success(res.data.message);
+        setOpenRegularizeDailog(false);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function downloadCard() {
@@ -378,12 +401,16 @@ function ViewAttendance() {
     card.current.innerText = "Wait for Download";
 
     const data = sendEmployeeData;
-    data.month = sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
-    data.year = sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
+    data.month =
+      sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
+    data.year =
+      sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
     console.log(data);
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-attendance-card-by-variable`,
+      url: `${
+        import.meta.env.VITE_API_URL
+      }/mhere/get-attendance-card-by-variable`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -408,13 +435,15 @@ function ViewAttendance() {
     muster.current.disabled = true;
     muster.current.innerText = "Wait for Download";
     const data = sendEmployeeData;
-    data.month = sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
-    data.year = sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
+    data.month =
+      sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
+    data.year =
+      sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
     console.log(data);
 
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-muster-card-by-variable`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-muster-card-by-variable`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -437,13 +466,17 @@ function ViewAttendance() {
     trainingmuster.current.disabled = true;
     trainingmuster.current.innerText = "Wait for Download";
     const data = sendEmployeeData;
-    data.month = sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
-    data.year = sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
+    data.month =
+      sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
+    data.year =
+      sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
     console.log(data);
 
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-training-muster-card-by-variable`,
+      url: `${
+        import.meta.env.VITE_API_URL
+      }/mhere/get-training-muster-card-by-variable`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -474,7 +507,7 @@ function ViewAttendance() {
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
         console.log(json);
-        setRegularizeFile(json)
+        setRegularizeFile(json);
       };
       reader.readAsArrayBuffer(e.target.files[0]);
     }
@@ -484,19 +517,32 @@ function ViewAttendance() {
     <div className="view-attendance-main">
       <div className="attendance-search-main">
         <div className="attendance-search-input-main">
-          <SlInput label="Employee Code" onSlChange={(e) => setSendEmployeeData({ ...sendEmployeeData, employee_id: e.target.value })}></SlInput>
+          <SlInput
+            label="Employee Code"
+            onSlChange={(e) =>
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                employee_id: e.target.value,
+              })
+            }
+          ></SlInput>
           <SlSelect
             className="add-emp-input"
             label="Select Category"
             onSlChange={(e) => {
               console.log(e.target.value.split("_").join(" "));
-              setSendEmployeeData({ ...sendEmployeeData, category: e.target.value.split("_").join(" ") });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                category: e.target.value.split("_").join(" "),
+              });
             }}
-           
           >
             {categoryList?.map((item, i) => {
               return (
-                <SlOption key={`${i}cat`} value={item.category.split(" ").join("_")}>
+                <SlOption
+                  key={`${i}cat`}
+                  value={item.category.split(" ").join("_")}
+                >
                   {item.category}
                 </SlOption>
               );
@@ -506,12 +552,18 @@ function ViewAttendance() {
             className="add-emp-input"
             label="Select Vendor Code"
             onSlChange={(e) => {
-              setSendEmployeeData({ ...sendEmployeeData, vendor: e.target.value.split("_").join(" ") });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                vendor: e.target.value.split("_").join(" "),
+              });
             }}
           >
             {vendorList?.map((item, i) => {
               return (
-                <SlOption key={`${i}ven`} value={item.vendor_code.split(" ").join("_")}>
+                <SlOption
+                  key={`${i}ven`}
+                  value={item.vendor_code.split(" ").join("_")}
+                >
                   {item.vendor_name} ( {item.vendor_code} )
                 </SlOption>
               );
@@ -521,12 +573,18 @@ function ViewAttendance() {
             className="add-emp-input"
             label="Select Department"
             onSlChange={(e) => {
-              setSendEmployeeData({ ...sendEmployeeData, department: e.target.value.split("_").join(" ") });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                department: e.target.value.split("_").join(" "),
+              });
             }}
           >
             {deptList?.map((item, i) => {
               return (
-                <SlOption key={`${i}dept`} value={item.department.split(" ").join("_")}>
+                <SlOption
+                  key={`${i}dept`}
+                  value={item.department.split(" ").join("_")}
+                >
                   {item.department}
                 </SlOption>
               );
@@ -537,12 +595,18 @@ function ViewAttendance() {
             label="Select Plant"
             onSlChange={(e) => {
               getDivision(e.target.value);
-              setSendEmployeeData({ ...sendEmployeeData, plant: e.target.value.split("_").join(" ") });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                plant: e.target.value.split("_").join(" "),
+              });
             }}
           >
             {plantList?.map((item, i) => {
               return (
-                <SlOption key={`${i}plant`} value={item.plant.split(" ").join("_")}>
+                <SlOption
+                  key={`${i}plant`}
+                  value={item.plant.split(" ").join("_")}
+                >
                   {item.plant}
                 </SlOption>
               );
@@ -552,12 +616,18 @@ function ViewAttendance() {
             className="add-emp-input"
             label="Select Division"
             onSlChange={(e) => {
-              setSendEmployeeData({ ...sendEmployeeData, division: e.target.value.split("_").join(" ") });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                division: e.target.value.split("_").join(" "),
+              });
             }}
           >
             {divisionList?.map((item, i) => {
               return (
-                <SlOption key={`${i}divisionu`} value={item.division.split(" ").join("_")}>
+                <SlOption
+                  key={`${i}divisionu`}
+                  value={item.division.split(" ").join("_")}
+                >
                   {item.division}
                 </SlOption>
               );
@@ -567,7 +637,10 @@ function ViewAttendance() {
             className="add-emp-input"
             label="Select Gender"
             onSlChange={(e) => {
-              setSendEmployeeData({ ...sendEmployeeData, gender: e.target.value });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                gender: e.target.value,
+              });
             }}
           >
             <SlOption value="M">Male</SlOption>
@@ -578,10 +651,23 @@ function ViewAttendance() {
             label="Start Date"
             onSlChange={(e) => {
               addDays(e.target.value);
-              setSendEmployeeData({ ...sendEmployeeData, start_date: e.target.value });
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                start_date: e.target.value,
+              });
             }}
           ></SlInput>
-          <SlInput type="date" label="End Date" max={searchMaxDate} onSlChange={(e) => setSendEmployeeData({ ...sendEmployeeData, end_date: e.target.value })}></SlInput>
+          <SlInput
+            type="date"
+            label="End Date"
+            max={searchMaxDate}
+            onSlChange={(e) =>
+              setSendEmployeeData({
+                ...sendEmployeeData,
+                end_date: e.target.value,
+              })
+            }
+          ></SlInput>
           <SlButton
             variant="primary"
             onClick={() => {
@@ -622,19 +708,42 @@ function ViewAttendance() {
             Regularize Attendance
           </SlButton>
         </div>
-        <div style={{ marginTop: "5vh", padding: "0px" }} className="table-ceam report-table roster-table ">
-          <MUIDataTable title="Attendance Data" data={employeeData} columns={EmployeeColumn} options={options}></MUIDataTable>
+        <div
+          style={{ marginTop: "5vh", padding: "0px" }}
+          className="table-ceam report-table roster-table "
+        >
+          <MUIDataTable
+            title="Attendance Data"
+            data={employeeData}
+            columns={EmployeeColumn}
+            options={options}
+          ></MUIDataTable>
         </div>
       </div>
-      <SlDialog label="Regulaize Attendance" open={openRegularizeDailog} onSlRequestClose={() => setOpenRegularizeDailog(false)}>
-        <input type="file" onChange={(e)=>{
-			readUploadFile(e)
-		
-		}}></input>
-        <SlButton slot="footer" variant="success" style={{ marginRight: "20px" }} onClick={() => sendRegularizeData()}>
+      <SlDialog
+        label="Regulaize Attendance"
+        open={openRegularizeDailog}
+        onSlRequestClose={() => setOpenRegularizeDailog(false)}
+      >
+        <input
+          type="file"
+          onChange={(e) => {
+            readUploadFile(e);
+          }}
+        ></input>
+        <SlButton
+          slot="footer"
+          variant="success"
+          style={{ marginRight: "20px" }}
+          onClick={() => sendRegularizeData()}
+        >
           Submit
         </SlButton>
-        <SlButton slot="footer" variant="danger" onClick={() => setOpenRegularizeDailog(false)}>
+        <SlButton
+          slot="footer"
+          variant="danger"
+          onClick={() => setOpenRegularizeDailog(false)}
+        >
           Close
         </SlButton>
       </SlDialog>

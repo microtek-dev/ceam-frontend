@@ -70,7 +70,7 @@ function CeamRoster() {
   function getShiftType() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-shift-type`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-shift-type`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -94,7 +94,7 @@ function CeamRoster() {
   function getData() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-plant`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-plant`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -113,7 +113,7 @@ function CeamRoster() {
     };
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-division`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-division`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -137,7 +137,7 @@ function CeamRoster() {
 
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-roster`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-roster`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -182,7 +182,7 @@ function CeamRoster() {
     console.log(data);
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/upload-roster-bulk`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/upload-roster-bulk`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -264,7 +264,7 @@ function CeamRoster() {
 
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-pending-roster-upload`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-pending-roster-upload`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -297,7 +297,9 @@ function CeamRoster() {
       console.log(send_data);
       axios({
         method: "post",
-        url: `${baseurl.base_url}/mhere/upload-roster-bulk-past-days`,
+        url: `${
+          import.meta.env.VITE_API_URL
+        }/mhere/upload-roster-bulk-past-days`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -320,7 +322,9 @@ function CeamRoster() {
     console.log(rosterReportData);
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-upload-roster-bulk-report`,
+      url: `${
+        import.meta.env.VITE_API_URL
+      }/mhere/get-upload-roster-bulk-report`,
       headers: {
         "Content-Type": "application/json",
       },

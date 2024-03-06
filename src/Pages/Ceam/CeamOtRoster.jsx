@@ -97,7 +97,7 @@ function CeamOtRoster() {
   function getData() {
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-plant`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-plant`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -110,7 +110,7 @@ function CeamOtRoster() {
       });
     axios({
       method: "get",
-      url: `${baseurl.base_url}/mhere/get-ot-type`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-ot-type`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -129,7 +129,7 @@ function CeamOtRoster() {
     };
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-division`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-division`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -146,7 +146,7 @@ function CeamOtRoster() {
   function updateSignleOt() {
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/update-single-ot`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/update-single-ot`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -189,7 +189,7 @@ function CeamOtRoster() {
 
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-ot-roster`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/get-ot-roster`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -236,7 +236,7 @@ function CeamOtRoster() {
     console.log(data);
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/upload-ot-roster-bulk`,
+      url: `${import.meta.env.VITE_API_URL}/mhere/upload-ot-roster-bulk`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -316,7 +316,7 @@ function CeamOtRoster() {
       console.log(send_data);
       axios({
         method: "post",
-        url: `${baseurl.base_url}/mhere/upload-ot-bulk-past-days`,
+        url: `${import.meta.env.VITE_API_URL}/mhere/upload-ot-bulk-past-days`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -337,7 +337,9 @@ function CeamOtRoster() {
     console.log(rosterReportData);
     axios({
       method: "post",
-      url: `${baseurl.base_url}/mhere/get-upload-ot-roster-bulk-report`,
+      url: `${
+        import.meta.env.VITE_API_URL
+      }/mhere/get-upload-ot-roster-bulk-report`,
       headers: {
         "Content-Type": "application/json",
       },
