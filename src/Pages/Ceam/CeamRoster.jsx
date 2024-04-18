@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import "./Ceam.css";
+import readXlsxFile from "read-excel-file";
 import {
   SlButton,
   SlDialog,
@@ -25,6 +27,8 @@ import { MenuItem } from "@mui/material";
 function CeamRoster() {
   let navigate = useNavigate();
   const [openPending, setOpenPending] = useState(false);
+  const [uploadFlag, setUploadFlag] = useState(false);
+
   const [shiftList, setShiftList] = useState();
   const [file, setFile] = useState();
   const [rosterData, setRosterData] = useState();
@@ -67,6 +71,15 @@ function CeamRoster() {
     getData();
     getShiftType();
   }, []);
+  useEffect(() => {
+    if (pastFile) {
+      console.log(pastFile);
+      sendPastDaysRoster(pastFile);
+    } else {
+      console.log(pastFile, "else");
+    }
+  }, [pastFile]);
+
   function getShiftType() {
     axios({
       method: "get",
@@ -282,40 +295,120 @@ function CeamRoster() {
       });
   }
 
-  function sendPastDaysRoster() {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const data = e.target.result;
-      const workbook = xlsx.read(data, { type: "array" });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const json = xlsx.utils.sheet_to_json(worksheet);
-      const send_data = {
-        roster_data: json,
-        employee_id: localStorage.getItem("employee_id"),
-      };
-      console.log(send_data);
-      axios({
-        method: "post",
-        url: `${
-          import.meta.env.VITE_API_URL
-        }/mhere/upload-roster-bulk-past-days`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: send_data,
+  // function sendPastDaysRoster() {
+
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     const data = e.target.result;
+  //     const workbook = xlsx.read(data, { type: "array" });
+  //     const sheetName = workbook.SheetNames[0];
+  //     const worksheet = workbook.Sheets[sheetName];
+  //     const json = xlsx.utils.sheet_to_json(worksheet);
+  //     const send_data = {
+  //       roster_data: json,
+  //       employee_id: localStorage.getItem("employee_id"),
+  //     };
+  //     console.log(send_data);
+  //     axios({
+  //       method: "post",
+  //       url: `${
+  //         import.meta.env.VITE_API_URL
+  //       }/mhere/upload-roster-bulk-past-days`,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       data: send_data,
+  //     })
+  //       .then((res) => {
+  //         console.log(res);
+  //         toast.success(res.data.message);
+  //         setOpenUploadPast(false);
+  //       })
+  //       .catch((err) => {
+  //         toast.error(err.response.data.message);
+  //         console.log(err);
+  //       });
+  //   };
+  //   reader.readAsArrayBuffer(pastFile[0]);
+  // }
+  const map = {
+    emp_id: "emp_id",
+    plant: "plant",
+    division: "division",
+    "2024-04-16": "2024-04-16",
+  };
+  const sendPastDaysRoster = (newValue) => {
+    readXlsxFile(newValue[0], { map })
+      .then(({ rows }) => {
+        console.log(rows);
+
+        // Calculate total number of rows
+        const totalRows = rows?.length;
+        let chunkSize = rows?.length; // Adjust the chunk size as needed
+        let startIndex = 0;
+        let endIndex = Math.min(chunkSize, totalRows);
+        function readNextChunk() {
+          let chunk = rows.slice(startIndex, endIndex);
+          // Send the chunk data to the server
+          sendChunkToServer(chunk)
+            .then(() => {
+              // Move to the next chunk
+              console.log("try-block");
+              startIndex = endIndex;
+              endIndex = Math.min(endIndex + chunkSize, totalRows);
+              if (startIndex < totalRows) {
+                setTimeout(readNextChunk, 500);
+                console.log("one chunk sent");
+              } else {
+                // All chunks have been processed
+                console.log("All chunks processed");
+                toast.success("All chunks sent successfully");
+                // Additional code snippet to execute
+                console.log(newValue, "newValue");
+                setPastFile(null);
+              }
+            })
+            .catch((err) => {
+              console.error(err);
+              toast.error("Error occurred while sending chunk to server");
+            });
+        }
+        readNextChunk();
       })
-        .then((res) => {
-          console.log(res);
-          toast.success(res.data.message);
-          setOpenUploadPast(false);
-        })
-        .catch((err) => {
-          toast.error(err.response.data.message);
-          console.log(err);
-        });
+      .catch((err) => {
+        console.error(err);
+        toast.error("Error occurred while reading file");
+      });
+  };
+
+  function sendChunkToServer(chunkData) {
+    setUploadFlag(true);
+
+    const send_data = {
+      roster_data: chunkData,
+      employee_id: localStorage.getItem("employee_id"),
     };
-    reader.readAsArrayBuffer(pastFile[0]);
+
+    return axios({
+      method: "post",
+      timeout: 100000000,
+      timeoutErrorMessage: "Request timed out",
+
+      url: `${import.meta.env.VITE_API_URL}/mhere/upload-roster-bulk-past-days`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: send_data,
+    })
+      .then((res) => {
+        setUploadFlag(false);
+        setOpenUploadPast(false);
+      })
+      .catch((err) => {
+        setUploadFlag(false);
+        setOpenUploadPast(false);
+        console.log(err);
+      });
   }
 
   function downloadRosterReport() {
@@ -742,13 +835,26 @@ function CeamRoster() {
             setPastFile(e.target.files);
           }}
         />
+
         <SlButton
           slot="footer"
           variant="success"
           style={{ marginRight: "15px" }}
           onClick={() => sendPastDaysRoster()}
         >
-          Upload
+          {uploadFlag ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Uploading {<CircularProgress size={20} />}
+            </div>
+          ) : (
+            "Upload"
+          )}
         </SlButton>
         <SlButton
           slot="footer"
