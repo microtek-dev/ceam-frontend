@@ -38,7 +38,7 @@ function CeamRoster() {
   const [openUpload, setOpenUpload] = useState(false);
   const [openUploadPast, setOpenUploadPast] = useState(false);
   const [openRosterReport, setOpenRosterReport] = useState(false);
-  const [pastFile, setPastFile] = useState();
+  const [pastFile, setPastFile] = useState(null);
   const [openUploadOT, setOpenUploadOT] = useState(false);
   const [selectMonth, setSelectMonth] = useState(false);
   const [href, setHref] = useState();
