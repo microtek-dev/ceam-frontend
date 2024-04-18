@@ -403,10 +403,12 @@ function CeamRoster() {
       .then((res) => {
         setUploadFlag(false);
         setOpenUploadPast(false);
+        setPastFile(null);
       })
       .catch((err) => {
         setUploadFlag(false);
         setOpenUploadPast(false);
+        setPastFile(null);
         console.log(err);
       });
   }
@@ -841,6 +843,7 @@ function CeamRoster() {
           variant="success"
           style={{ marginRight: "15px" }}
           onClick={() => sendPastDaysRoster()}
+          disabled={uploadFlag}
         >
           {uploadFlag ? (
             <div
