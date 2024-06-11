@@ -31,7 +31,7 @@ jobs:
           username: root
           password: M!w6By7#6%
           source: ./
-          target: /root/web-app/ceam-frontend
+          target: /root/web-app/ceam-frontend-new
       - name: Switch to new version and remove old version
         uses: appleboy/ssh-action@master
         with:
