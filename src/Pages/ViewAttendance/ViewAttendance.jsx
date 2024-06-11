@@ -231,7 +231,12 @@ function ViewAttendance() {
             item.Extra - parseInt(item.Extra / 60) * 60
           }M`;
         });
-        setEmployeeData(data);
+
+        if (localStorage.getItem("employee_id") === "58872") {
+          setEmployeeData(data.filter((item) => item.division === "SECURITY"));
+        } else {
+          setEmployeeData(data);
+        }
       })
       .catch((err) => {
         console.log(err);

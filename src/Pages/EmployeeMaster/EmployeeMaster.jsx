@@ -434,7 +434,14 @@ function EmployeeMaster() {
     })
       .then((res) => {
         console.log(res);
-        setEmpData(res.data.data);
+        if (localStorage.getItem("employee_id") === "58872") {
+          setEmpData(
+            res?.data?.data.filter((item) => item.division === "SECURITY")
+          );
+        } else {
+          setEmpData(res?.data?.data);
+        }
+        // setEmpData(res.data.data);
         if (res.data.data.length) {
           let myArray = Object.keys(res.data.data[0]);
           let idIndex = myArray.indexOf("ceam_master_id");
