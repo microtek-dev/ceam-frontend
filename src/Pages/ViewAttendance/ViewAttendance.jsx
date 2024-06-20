@@ -35,7 +35,7 @@ function ViewAttendance() {
   const [categoryList, setCategoryList] = useState();
   const [openRegularizeDailog, setOpenRegularizeDailog] = useState(false);
   const [regularizeFile, setRegularizeFile] = useState();
-  const [sendEmployeeData, setSendEmployeeData] = useState({
+  const initialState = {
     start_date: "",
     end_date: "",
     employee_id: "",
@@ -45,7 +45,8 @@ function ViewAttendance() {
     plant: "",
     division: "",
     department: "",
-  });
+  };
+  const [sendEmployeeData, setSendEmployeeData] = useState(initialState);
   const [employeeData, setEmployeeData] = useState();
 
   const [sendVendorData, setSendVendorData] = useState({
@@ -237,10 +238,12 @@ function ViewAttendance() {
         } else {
           setEmployeeData(data);
         }
+        // setSendEmployeeData(initialState);
       })
       .catch((err) => {
         console.log(err);
         toast.error(err.response.data.message);
+        // setSendEmployeeData(initialState);
       });
   }
 
@@ -290,8 +293,11 @@ function ViewAttendance() {
       .then((res) => {
         console.log(res);
         setPlantList(res.data.data);
+        // setSendEmployeeData(initialState);
       })
       .catch((err) => {
+        // setSendEmployeeData(initialState);
+
         console.log(err);
       });
   }
@@ -330,8 +336,16 @@ function ViewAttendance() {
       },
     })
       .then((res) => {
-        //  console.log(res.data.data);
-        setDeptList(res.data.data);
+        // of employee id 58872 disable all the department in dropdown except security
+
+        if (localStorage.getItem("employee_id") === "58872") {
+          setDeptList(
+            res.data.data?.filter((item) => item.department === "SECURITY")
+          );
+        } else {
+          setDeptList(res.data.data);
+        }
+        // setDeptList(res.data.data);
         // toast.success(res.data.message)
       })
       .catch((err) => {
@@ -588,7 +602,7 @@ function ViewAttendance() {
               return (
                 <SlOption
                   key={`${i}dept`}
-                  value={item.department.split(" ").join("_")}
+                  value={item.department?.split(" ")?.join("_")}
                 >
                   {item.department}
                 </SlOption>
