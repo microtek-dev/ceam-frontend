@@ -424,6 +424,8 @@ function ViewAttendance() {
       sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
     data.year =
       sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
+    data.department =
+      localStorage.getItem("employee_id") === "58872" && "SECURITY";
     console.log(data);
     axios({
       method: "post",
@@ -458,6 +460,8 @@ function ViewAttendance() {
       sendEmployeeData.start_date.split("-")[1] || new Date().getMonth() + 1;
     data.year =
       sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
+    data.department =
+      localStorage.getItem("employee_id") === "58872" && "SECURITY";
     console.log(data);
 
     axios({
@@ -490,7 +494,8 @@ function ViewAttendance() {
     data.year =
       sendEmployeeData.start_date.split("-")[0] || new Date().getFullYear();
     console.log(data);
-
+    data.department =
+      localStorage.getItem("employee_id") === "58872" && "SECURITY";
     axios({
       method: "post",
       url: `${
