@@ -716,14 +716,16 @@ function ViewAttendance() {
           >
             Download Muster Roll
           </SlButton>
-          <SlButton
-            ref={trainingmuster}
-            onClick={() => {
-              downloadTrainingMusterRoll();
-            }}
-          >
-            Download Training Muster Roll
-          </SlButton>
+          {localStorage.getItem("employee_id") !== "58872" && (
+            <SlButton
+              ref={trainingmuster}
+              onClick={() => {
+                downloadTrainingMusterRoll();
+              }}
+            >
+              Download Training Muster Roll
+            </SlButton>
+          )}
           <SlButton
             onClick={() => {
               setOpenRegularizeDailog(true);
