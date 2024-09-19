@@ -7,7 +7,9 @@ export default defineConfig({
   // comment this out if that isn't relevant for your project
   build: {
     outDir: "build",
+    optimization: { minimize: false },
   },
+
   // include excel files and asset
   assetsInclude: ["**/*.xlsx", "**/*.csv"],
   plugins: [reactRefresh()],

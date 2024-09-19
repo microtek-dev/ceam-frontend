@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import * as xlsx from "xlsx";
 import { baseurl } from "../../api/apiConfig";
 import "./EmployeeMaster.css";
+import { Box, Button } from "@mui/material";
+import { json } from "react-router-dom";
 
 function EmployeeMaster() {
   /* Backdrop state */
@@ -25,7 +27,9 @@ function EmployeeMaster() {
   const [empAadharCode, setEmpAadharCode] = useState();
   const [token, setToken] = useState();
   const [aadharOtp, setAadharOtp] = useState();
-
+  const [verifyAadhar, setVerifyAadhar] = useState("");
+  const [verifyAadharBtn, setVerifyAadharBtn] = useState("");
+  const [verifyAadharData, setVerifyAadharData] = useState({});
   const [vendorList, setVendorList] = useState();
   const [divisionList, setDivisionList] = useState([]);
 
@@ -71,6 +75,7 @@ function EmployeeMaster() {
   });
 
   /* Dialog States */
+  const [blackListModal, setBlackListModal] = useState(false);
   const [openAddEmp, setOpenAddEmp] = useState(false);
   const [openUpdateEmp, setOpenUpdateEmp] = useState(false);
   const [openAadharDialog, setOpenAadharDialog] = useState(false);
@@ -83,6 +88,23 @@ function EmployeeMaster() {
     getVendorlist();
   }, []);
 
+  const verifyAadharHandler = async () => {
+    try {
+      setVerifyAadharBtn(true);
+      const data = await axios.post(
+        `${import.meta.env.VITE_TEST_URL}/mhere/get-employee-by-aadhar`,
+        {
+          aadhar_card_number: verifyAadhar,
+        }
+      );
+      setVerifyAadharData(data?.data);
+      console.log(data?.data);
+      setVerifyAadharBtn(false);
+    } catch (err) {
+      console.log(err);
+      setVerifyAadharBtn(false);
+    }
+  };
   function sendAadharOtp(aad_number) {
     const data = {
       username: "test",
@@ -292,6 +314,22 @@ function EmployeeMaster() {
       },
     },
     {
+      name: "blacklistEmployee",
+      label: "Blacklisted",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRenderLite: (dataIndex, rowIndex) => {
+          //console.log(dataIndex);
+          return (
+            <div>
+              {empData[dataIndex]?.blacklistEmployee === "True" ? "yes" : "no"}
+            </div>
+          );
+        },
+      },
+    },
+    {
       name: "frt_verify_flag",
       label: "FRT Verified",
       options: {
@@ -440,6 +478,7 @@ function EmployeeMaster() {
           );
         } else {
           setEmpData(res?.data?.data);
+          console.log(res?.data?.data);
         }
         // setEmpData(res.data.data);
         if (res.data.data.length) {
@@ -783,6 +822,15 @@ function EmployeeMaster() {
             className="plant-add-button"
             variant="primary"
             onClick={() => {
+              setBlackListModal(true);
+            }}
+          >
+            BlackList Employee
+          </SlButton>
+          <SlButton
+            className="plant-add-button"
+            variant="primary"
+            onClick={() => {
               setOpenAddEmp(true);
             }}
           >
@@ -1088,6 +1136,37 @@ function EmployeeMaster() {
             Close
           </SlButton>
         </div>
+      </SlDialog>
+      <SlDialog
+        style={{ "--width": "60vw" }}
+        label="Check Employee Status"
+        open={blackListModal}
+        onSlRequestClose={() => setBlackListModal(false)}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            gap: "10px",
+            marginBottom: "10px",
+            alignItems: "center",
+          }}
+        >
+          <SlInput
+            placeholder="Enter Aadhar number"
+            label="Employee Status"
+            value={verifyAadhar}
+            onSlChange={(e) => setVerifyAadhar(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            onClick={verifyAadharHandler}
+            sx={{ marginTop: "1rem" }}
+            disabled={verifyAadharBtn}
+          >
+            Check
+          </Button>
+        </Box>
+        <pre>{JSON?.stringify(verifyAadharData, null, 2)}</pre>
       </SlDialog>
       <SlDialog
         label="Dialog"

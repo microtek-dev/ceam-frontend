@@ -18,6 +18,7 @@ import React from "react";
 import ViewAttendance from "./Pages/ViewAttendance/ViewAttendance";
 import VendorMaster from "./Pages/VendorMaster/VendorMaster";
 import Home from "./Pages/Home/Home";
+import BlacklistEmployee from "./Pages/BlacklistEmployee/BlacklistEmployee";
 setBasePath(
   "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.86/dist/"
 );
@@ -153,6 +154,17 @@ function App() {
             element={
               localStorage.getItem("token") ? (
                 <EmployeeMaster />
+              ) : (
+                <Navigate replace to="/login" />
+              )
+            }
+          ></Route>
+          <Route
+            exact
+            path="/verify-employee"
+            element={
+              localStorage.getItem("token") ? (
+                <BlacklistEmployee />
               ) : (
                 <Navigate replace to="/login" />
               )

@@ -1,200 +1,192 @@
-.ceam-main{
-    display: flex;
-    min-height: 100%;
-    min-width: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.ceam-main {
+  display: flex;
+  min-height: 100%;
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.ceam-inner{
-    display: flex;
-    flex-direction: column;
-    min-height: 30vh;
-    width: 30%;
-    border: 1px solid black;
-    
+.ceam-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 30vh;
+  width: 30%;
+  border: 1px solid black;
 }
-.ceam-inner > div:nth-child(1){
-    background-color: rgba(96, 221, 221, 0.486);
-}
-
-.ceam-inner-record{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1% 5%;
-    border-bottom: 1px solid black;
-}
-.ceam-inner-record > h4{
-    font-size: 16px;
+.ceam-inner > div:nth-child(1) {
+  background-color: rgba(96, 221, 221, 0.486);
 }
 
-.ceam-main-proceed-button{
-    width: 150px;
-    padding: 2% 0%;
-    margin-top: 3vh;
+.ceam-inner-record {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1% 5%;
+  border-bottom: 1px solid black;
+}
+.ceam-inner-record > h4 {
+  font-size: 16px;
 }
 
-.file-picker-ceam{
-   
-   padding: 0%;
-   max-width: 30vw;
- 
-    background-color: rgba(255, 255, 255, 0);
-    
-}
-.ceam-search-main{
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-.ceam-roster-main{
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    min-width: 100%;
+.ceam-main-proceed-button {
+  width: 150px;
+  padding: 2% 0%;
+  margin-top: 3vh;
 }
 
-.ceam-roster-date-main{
-    min-width: 100%;
-    margin-bottom: 2%;
-    padding: 10px 0%;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-   
+.file-picker-ceam {
+  padding: 0%;
+  max-width: 30vw;
+
+  background-color: rgba(255, 255, 255, 0);
 }
-.month-picker-ceam{
-    margin: auto;
-    max-width: 25vw;
-    border-radius: 20px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.288), -1px -1px 5px rgba(0, 0, 0, 0.178);
-    border: none;
-    padding: 10px 20px;
-    margin-top: 2vh;
+.ceam-search-main {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
-.month-picker-ceam-second{
-    
-    max-width: 25vw;
-    border-radius: 3px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.116), -1px -1px 3px rgba(0, 0, 0, 0.116);
-    border: none;
-    padding: 10px 20px;
-    min-width: 180px !important;
-   
-}
-.ceam-main-buttons{
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.ceam-roster-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  min-width: 100%;
 }
 
-.ceam-file-main{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 3vh;
-    padding: 0% 1% 1% 1%;
-    border-bottom: 1px solid rgb(172, 172, 172);
-    gap: 15px;
-    margin-top: 7vh;
-
+.ceam-roster-date-main {
+  min-width: 100%;
+  margin-bottom: 2%;
+  padding: 10px 0%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
-.logout-buuton{
-    position: absolute;
-    right: 10px;
+.month-picker-ceam {
+  margin: auto;
+  max-width: 25vw;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.288),
+    -1px -1px 5px rgba(0, 0, 0, 0.178);
+  border: none;
+  padding: 10px 20px;
+  margin-top: 2vh;
 }
-
-.table-ceam{
-    padding: 0% 1% 5vh 1%;
+.month-picker-ceam-second {
+  max-width: 25vw;
+  border-radius: 3px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.116),
+    -1px -1px 3px rgba(0, 0, 0, 0.116);
+  border: none;
+  padding: 10px 20px;
+  min-width: 180px !important;
 }
-
-.open-roster-upload{
-    background-color: rgb(114, 114, 114);
-    padding: 5px 1%;
-    color: white;
-    border-radius: 20px;
-    border: 1px solid rgb(148, 148, 148);
-    font-size: 14px;
-    font-weight: 600;
-    margin-right: 10px;
-}
-
-.open-roster-download{
-    background-color: rgb(114, 114, 114);
-    padding: 5px 1%;
-    color: white;
-    border-radius: 20px;
-    border: 1px solid rgb(148, 148, 148);
-    font-size: 14px;
-    font-weight: 600;
-    margin-right: 20px;
+.ceam-main-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.ot-roster-table-main{
-    margin-top: 5%;
+.ceam-file-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3vh;
+  padding: 0% 1% 1% 1%;
+  border-bottom: 1px solid rgb(172, 172, 172);
+  gap: 15px;
+  margin-top: 7vh;
+}
+.logout-buuton {
+  position: absolute;
+  right: 10px;
 }
 
-.ot-upload-month{
-    width: 100%;
-    border-radius: 5px !important;
-    margin-bottom: 10px;
+.table-ceam {
+  padding: 0% 1% 5vh 1%;
 }
 
-
-.no-data{
-    font-size: 20px;
-    text-align: center;
-    margin-top: 10vh;
+.open-roster-upload {
+  background-color: rgb(114, 114, 114);
+  padding: 5px 1%;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid rgb(148, 148, 148);
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 10px;
 }
 
-.update-ot-single-main{
-    display: flex;
-    flex-direction: column;
-   
-    min-width: 100%;
-    gap: 15px;
+.open-roster-download {
+  background-color: rgb(114, 114, 114);
+  padding: 5px 1%;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid rgb(148, 148, 148);
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 20px;
 }
 
+.ot-roster-table-main {
+  margin-top: 5%;
+}
+
+.ot-upload-month {
+  width: 100%;
+  border-radius: 5px !important;
+  margin-bottom: 10px;
+}
+
+.no-data {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+.update-ot-single-main {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 100%;
+  gap: 15px;
+}
 
 @media only screen and (max-width: 950px) {
-    .ceam-file-main{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 30px;
-    }
-    .tss-hj53wm-MUIDataTableToolbar-titleText {
-        font-size: 16px !important;
-    }
+  .ceam-file-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
   }
+  .tss-hj53wm-MUIDataTableToolbar-titleText {
+    font-size: 16px !important;
+  }
+}
 @media only screen and (max-width: 400px) {
-    .ceam-main-buttons {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        min-width: 100%;
-        justify-content: center;
-        flex-direction: column;
-    }
-    .ceam-search-main{
-        flex-direction: column;
-        min-width: 100%;
-    }
-    .month-picker-ceam-second{
-        min-width: 100% !important;
-    }
+  .ceam-main-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-width: 100%;
+    justify-content: center;
+    flex-direction: column;
   }
-
-
-  .roster-table .tss-1qtl85h-MUIDataTableBodyCell-root{
-    min-width: max-content;
+  .ceam-search-main {
+    flex-direction: column;
+    min-width: 100%;
   }
-
-  .roster-table .css-1w1rijm-MuiButtonBase-root-MuiButton-root{
-    justify-content: flex-start;
-    min-width: 40px;
+  .month-picker-ceam-second {
+    min-width: 100% !important;
   }
+}
+
+.roster-table .tss-1qtl85h-MUIDataTableBodyCell-root {
+  min-width: max-content;
+}
+
+.roster-table .css-1w1rijm-MuiButtonBase-root-MuiButton-root {
+  justify-content: flex-start;
+  min-width: 40px;
+}
