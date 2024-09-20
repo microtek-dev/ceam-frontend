@@ -21,7 +21,7 @@ import thirtydays from "./templates/30daysTemplate.xlsx";
 import thirtyonedays from "./templates/31daysTemplate.xlsx";
 import twentyninedays from "./templates/9daysTemplate.xlsx";
 import regulartemplate from "./templates/regularize_template.xlsx";
-import logo from "../../../public/new_logo.png";
+import logo from "/new_logo.png";
 function Navbar() {
   let navigate = useNavigate();
   let today = new Date();

@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmployeeMaster from "./Pages/EmployeeMaster/EmployeeMaster";
 import axios from "axios";
-import { baseurl } from "./api/apiConfig";
+// import { baseurl } from "./api/apiConfig";
 import React from "react";
 import ViewAttendance from "./Pages/ViewAttendance/ViewAttendance";
 import VendorMaster from "./Pages/VendorMaster/VendorMaster";
@@ -41,7 +41,7 @@ function App() {
       },
     })
       .then(function (response) {
-        // console.log(response.data)
+        console.log(response.data);
       })
       .catch(function (err) {
         console.log(err);
