@@ -1,19 +1,21 @@
 .home-main {
   display: flex;
-  min-width: 100%;
+  width: 100%;
 }
 .home-inner {
-  margin-top: 3vh;
-  display: grid;
-  min-width: 100%;
+  display: flex;
+  /* margin-top: 3vh; */
+  /* display: grid; */
+  width: 100%;
   height: 80vh;
-  grid-template-columns: repeat(5, 1fr);
+  justify-content: space-between;
 }
 
 .home-inner > div {
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
   text-align: center;

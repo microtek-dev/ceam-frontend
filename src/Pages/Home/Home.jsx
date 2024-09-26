@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Home.css";
 function Home() {
   let navigate = useNavigate();
-
+  console.log(localStorage.getItem("module_access"));
   return (
     <div className="home-main">
       <div className="home-inner">
@@ -35,14 +35,17 @@ function Home() {
         >
           Employee Management
         </div>
-        <div
-          onClick={() => {
-            navigate("/verify-employee");
-          }}
-          style={{ pointerEvents: "none" }}
-        >
-          Blacklist Verify
-        </div>
+        {JSON.parse(localStorage.getItem("module_access"))
+          ?.ceam_employee_management && (
+          <div
+            onClick={() => {
+              navigate("/verify-employee");
+            }}
+            // style={{ pointerEvents: "none" }}
+          >
+            Employee Verification
+          </div>
+        )}
 
         {/*  <div onClick={()=>{
                    navigate("/approve-manage")

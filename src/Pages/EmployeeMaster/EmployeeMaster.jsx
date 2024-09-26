@@ -92,7 +92,7 @@ function EmployeeMaster() {
     try {
       setVerifyAadharBtn(true);
       const data = await axios.post(
-        `${import.meta.env.VITE_TEST_URL}/mhere/get-employee-by-aadhar`,
+        `${import.meta.env.VITE_API_URL}/mhere/get-employee-by-aadhar`,
         {
           aadhar_card_number: verifyAadhar,
         }

@@ -3,8 +3,12 @@ import {
   Box,
   Button,
   Fade,
+  FormControl,
+  InputLabel,
+  MenuItem,
   Modal,
   Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -13,11 +17,12 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 import React, { useState } from "react";
 import "./index.css";
 import { SlInput } from "@shoelace-style/shoelace";
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import { colors } from "@mui/material";
 import { blacklistHeaders, modalStyle } from "../../utils/constants";
@@ -34,15 +39,17 @@ const BlacklistEmployee = () => {
   };
   const [verifyAadhar, setVerifyAadhar] = useState("");
   const [verifyAadharData, setVerifyAadharData] = useState(null);
-  const [reason, setReason] = useState("");
+  const [complianceType, setComplianceType] = useState("");
+  const [remarks, setRemarks] = useState("");
   const [open, setOpen] = React.useState(false);
+  const [variety, setVariety] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const { mutate, isLoading, data, error } = useMutation({
     mutationFn: fetchAadharData,
     onSuccess: (data) => {
-      setVerifyAadharData(data?.data);
+      setVerifyAadharData(data?.data[0]);
       console.log(data);
       toast.success(data?.message);
     },
@@ -51,10 +58,32 @@ const BlacklistEmployee = () => {
       toast.error(error?.response?.data?.message);
     },
   });
+
+  const fetchVariety = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/mhere/variety-of-blacklist`
+    );
+    console.log(response.data.data);
+    return response.data;
+  };
+
+  useQuery({
+    queryKey: ["variety"],
+    queryFn: () => fetchVariety(),
+    enabled: !!variety,
+    onSuccess: (data) => {
+      setVariety(data?.data);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
   const verifyAadharHandler = () => {
     mutate(verifyAadhar);
   };
-  // console.log(verifyAadharData);
+  console.log(verifyAadharData);
   const rows = [
     verifyAadharData?.employee_id,
     verifyAadharData?.employee_name,
@@ -65,7 +94,8 @@ const BlacklistEmployee = () => {
     verifyAadharData?.mobile_number,
     verifyAadharData?.DOL,
     verifyAadharData?.blacklistEmployee == 1 ? "Yes" : "No",
-    verifyAadharData?.reason,
+    verifyAadharData?.variety,
+    verifyAadharData?.remarks,
   ];
   const downloadBlacklistBulk = async () => {
     try {
@@ -97,12 +127,14 @@ const BlacklistEmployee = () => {
       const data = await axios.post(
         `${import.meta.env.VITE_API_URL}/mhere/making-blacklist-employee`,
         {
-          reason,
+          variety: complianceType?.variety,
+          remarks,
           employee_id: verifyAadharData?.employee_id,
           blacklisted_by: localStorage.getItem("employee_id"),
         }
       );
-      setReason("");
+      setComplianceType("");
+      setRemarks("");
       handleClose();
       setVerifyAadharData("");
       toast.success(data.data.message);
@@ -160,15 +192,15 @@ const BlacklistEmployee = () => {
           </Box>
           {error && <p>Error: {error.message}</p>}
           <Button variant="contained" onClick={downloadBlacklistBulk}>
-            Download Blacklisted Employees Report
+            <DownloadIcon /> Blacklisted Employees Report
           </Button>
         </Box>
       </div>
       {/* <pre>
-        {verifyAadharData && (
-          <pre>{JSON.stringify(verifyAadharData, null, 2)}</pre>
-        )}
-      </pre> */}
+       {verifyAadharData && (
+         <pre>{JSON.stringify(verifyAadharData, null, 2)}</pre>
+       )}
+     </pre> */}
       {verifyAadharData && (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -248,17 +280,35 @@ const BlacklistEmployee = () => {
                 value={verifyAadharData?.employee_id}
                 disabled
               />
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Compliance Type
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={complianceType}
+                  label="Compliance Type"
+                  onChange={(e) => setComplianceType(e.target.value)}
+                >
+                  {variety?.map((v, i) => (
+                    <MenuItem key={i} value={v}>
+                      {v?.variety}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
-                label="Enter Reason"
-                value={reason}
+                label="Enter Remarks"
+                value={remarks}
                 placeholder="Reason should be more than 5 characters"
-                onChange={(e) => setReason(e.target.value)}
+                onChange={(e) => setRemarks(e.target.value)}
               />
               <Button
                 variant="contained"
                 onClick={blacklistEMployeeHandler}
                 sx={{ borderRadius: "100px", marginTop: "0.5rem" }}
-                disabled={reason?.length > 5 ? false : true}
+                disabled={remarks?.length > 5 && complianceType ? false : true}
               >
                 Submit
               </Button>
